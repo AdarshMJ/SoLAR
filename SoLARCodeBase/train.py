@@ -1,4 +1,3 @@
-# I need to call this file from the main.py file to train the model and get the results
 import os
 import random
 import time
@@ -79,10 +78,6 @@ def train_and_get_results(data, model,p,lr,weight_decay=0):
                     print()
         avg_acc_testallsplits.append(np.mean(avg_testacc))
         trainallsplits.append(np.mean(trainacclist))
-
-        # print(f"Rewiring for index = {split_idx}")
-        # newdata, ActualEdgesRemoved, ActualEdgesAdded = methods.PeerGNNDeleteAdd(data, 1500, 0, pred)
-        # torch.save(newdata, f'SplitGraphs/Citeseer/Citeseer_{split_idx}_1700D_GCN.pt')
 
     avg_acc_testallsplits.append(np.mean(avg_testacc))
     trainallsplits.append(np.mean(trainacclist))
