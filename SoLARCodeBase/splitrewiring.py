@@ -44,20 +44,6 @@ parser.add_argument('--device',type=str,default='cuda',help='Device to use')
 args = parser.parse_args()
 
 
-# def check_for_leakage(data):
-#     train_nodes = data.train_mask.nonzero(as_tuple=True)[0].cpu().numpy()
-#     test_nodes = data.test_mask.nonzero(as_tuple=True)[0].cpu().numpy()
-
-#     # Check if any node in the training set is in the test set
-#     leakage_nodes = np.intersect1d(train_nodes, test_nodes)
-
-#     if len(leakage_nodes) > 0:
-#         print(f"Warning: Found {len(leakage_nodes)} nodes in both the training and test sets.")
-#     else:
-        # print("No leakage detected.")
-
-
-
 device = torch.device(args.device)
 filename = args.out
 graphfile = args.existing_graph
@@ -145,7 +131,6 @@ print()
 #transform2 = RandomNodeSplit(split="test_rest",num_splits=100,num_test = 0.2,num_val = 0.2)
 #data  = transform2(data)
 #print(data)
-#check_for_leakage(data)
 data = data.to(device)
 print()
 print("Start Training...")
