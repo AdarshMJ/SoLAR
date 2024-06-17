@@ -82,9 +82,6 @@ def create_model(model, num_features, num_classes, hidden_dimension):
         sys.exit()
 
 
-
-
-
 print("Label distiller model...")
 ogmodel = create_model(args.ogmodel, num_features, num_classes, args.oghidden_dimension).to(device)
 ogoptimizer = torch.optim.Adam(ogmodel.parameters(), lr=args.ogLR, weight_decay=0.0)
@@ -109,11 +106,11 @@ std_dev_after = np.std(finaltestaccafter)
 
 
 headers = ['Method','OGModel','Remodel','Dataset','AvgTestAccAfter','DeviationAfter',
-        'HiddenDim','LR','Dropout','GCNTime']
+        'OGHiddenDim','ReHiddenDim','ogLR','reLR','Dropout','GCNTime']
 
 with open(filename, mode='a', newline='') as file:
     writer = csv.writer(file)
     if file.tell() == 0:
         writer.writerow(headers)
     writer.writerow(["GCNGATDeletions",args.ogmodel,args.remodel,args.dataset,avg_test_acc_after,std_dev_after,
-                  hidden_dimension, lr, p, gcn_end-gcn_start])
+                  oghidden_dimension,rehidden_dimension, ogLR,reLR, p, gcn_end-gcn_start])
