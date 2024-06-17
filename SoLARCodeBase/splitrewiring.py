@@ -41,6 +41,10 @@ filename = args.out
 max_iterations_deletions = args.max_iters_delete
 max_iterations_additions = args.max_iters_add
 p = args.dropout
+oghidden_dimension = args.oghidden_dimension
+rehidden_dimension = args.rehidden_dimension
+ogLR = args.ogLR
+reLR = args.reLR
 
 
 print("Loading dataset...")
@@ -98,11 +102,15 @@ gcn_start = time.time()
 finaltestaccafter = train_and_get_results(data, ogmodel,ogoptimizer,remodel,reoptimizer,max_iterations_deletions,max_iterations_additions, p)
 gcn_end = time.time()
 
-print(f'Final test accuracy after {np.mean(finaltestaccafter):.2f} \u00B1 {np.std(finaltestaccafter):.2f}')
-
 
 avg_test_acc_after = np.mean(finaltestaccafter)
-std_dev_after = np.std(finaltestaccafter)
+sample_size = len(finaltestaccafter)
+std_dev_after = 2 * np.std(finaltestaccafter)/(np.sqrt(sample_size))
+
+print(f'Final test accuracy after {(avg_test_acc_after):.2f} \u00B1 {(std_dev_after):.2f}')
+
+
+
 
 
 headers = ['Method','OGModel','Remodel','Dataset','AvgTestAccAfter','DeviationAfter',
