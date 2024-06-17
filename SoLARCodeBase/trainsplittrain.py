@@ -25,14 +25,13 @@ def set_seed(seed):
 
 
 set_seed(3164711608)
-def train_and_get_results(data, OGmodel,remodel,edgesdelete,edgesadd,p,lr):
+def train_and_get_results(data, ogmodel,ogoptimizer,remodel,reoptimizer,edgesdelete,edgesadd,p):
     avg_testacc_before = []
     avg_acc_testallsplits_before = []
     avg_testacc_after = []
     avg_acc_testallsplits_after = []
 
-    optimizer1 = torch.optim.AdamW(OGmodel.parameters(), lr=lr, weight_decay=1e-3)
-    optimizer2 = torch.optim.AdamW(remodel.parameters(), lr=lr, weight_decay=5e-4)
+
     criterion = torch.nn.CrossEntropyLoss()
 
     def train(model,optimizer):
@@ -66,17 +65,17 @@ def train_and_get_results(data, OGmodel,remodel,edgesdelete,edgesadd,p,lr):
             return test_acc,pred
 
     original_data = copy.deepcopy(data)
-    for split_idx in range(0,5):
+    
+    for split_idx in range(0,100):
         data = copy.deepcopy(original_data)
-        #OGmodel.reset_parameters()
         train_mask = data.train_mask[:,split_idx]
         test_mask = data.test_mask[:,split_idx]
         val_mask = data.val_mask[:,split_idx]
         print(f"Training for index = {split_idx}")
-        for epoch in tqdm(range(1, 1001)):
-            loss = train(OGmodel,optimizer1)
-        val_acc = val(OGmodel)
-        test_acc,pred = test(OGmodel)
+        for epoch in tqdm(range(1, 101)):
+            loss = train(ogmodel,ogoptimizer)
+        val_acc = val(ogmodel)
+        test_acc,pred = test(ogmodel)
         avg_testacc_before.append(test_acc*100)
         print(f'Val Accuracy : {val_acc:.2f}, Test Accuracy: {test_acc:.2f} for seed')
         print()
@@ -88,8 +87,8 @@ def train_and_get_results(data, OGmodel,remodel,edgesdelete,edgesadd,p,lr):
         print(data)
         print()
         print("Start re-training ....")
-        for epoch in tqdm(range(1, 1001)):
-            loss = train(remodel,optimizer2)
+        for epoch in tqdm(range(1, 101)):
+            loss = train(remodel,reoptimizer)
         val_acc = val(remodel)
         test_acc,pred= test(remodel)
         avg_testacc_after.append(test_acc*100)
