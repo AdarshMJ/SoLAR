@@ -57,7 +57,7 @@ elif args.dataset in ['Roman-empire','Minesweeper','Amazon-ratings','Questions']
     data, num_classes,num_features = load_data(args.dataset)
 
 elif args.dataset in ['cornell.npz','texas.npz','wisconsin.npz']:
-    path = '/home/adarshjamadandi/heterophilous-graphs/data/'
+    path = '/home/heterophilous-graphs/data/'
     filepath = os.path.join(path, args.dataset)
     data = np.load(filepath)
     print("Converting to PyG dataset...")
@@ -84,7 +84,7 @@ elif args.dataset in ['cornell.npz','texas.npz','wisconsin.npz']:
     print("Done!..")
 
 elif args.dataset in ['chameleon_filtered.npz','squirrel_filtered.npz','actor.npz']:
-    path = '/home/adarshjamadandi/heterophilous-graphs/data/'
+    path = '/home/heterophilous-graphs/data/'
     filepath = os.path.join(path, args.dataset)
     data = np.load(filepath)
     print("Converting to PyG dataset...")
