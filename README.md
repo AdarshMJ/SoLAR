@@ -5,7 +5,7 @@ Requirements -
 
 1. Pytorch = 2.2.1
 2. Pytorch-Geometric - 2.5.2
-3. DGL - 2.1
+3. DGL - 2.2.1+cu121
 
 The folder ``rewiring/`` has spectral rewiring methods to maximize,minimize gap both add/delete.
 
