@@ -19,6 +19,6 @@ python splitrewiring.py --dataset Cora --out 'SolarGCN.csv' --hidden_dimension 3
 To run iterative version of rewiring -
 
 ```Python
-python main_iter.py --dataset Cora --out 'SolarIterativeGCN.csv' --hidden_dimension 32 --LR 0.01 --max_iters_delete 1500 --train_iters 1
+python mainiter.py --dataset Cora --out 'SolarIterativeGCN.csv' --hidden_dimension 32 --LR 0.01 --max_iters_delete 1500 --train_iters 1
 ```
 
